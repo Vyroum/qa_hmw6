@@ -64,7 +64,14 @@ def test_find_suitable_user():
     assert suitable_users == {"name": "Olga", "age": 45}
 
     # TODO найдите всех пользователей младше 20 лет
-    suitable_users = None
+    def suitable_user_age():
+        suitable_age = []
+        for user in users:
+            if user['age'] < 20:
+                suitable_age.append(user)
+        return suitable_age
+
+    suitable_users = suitable_user_age()
     assert suitable_users == [
         {"name": "Stanislav", "age": 15},
         {"name": "Maria", "age": 18},
@@ -80,7 +87,11 @@ def test_find_suitable_user():
 # сделать буквы заглавными (или первую букву), затем вывести значения всех аргументов этой функции:
 # >>> open_browser(browser_name="Chrome")
 # "Open Browser [Chrome]"
-
+def pretty_desc(func, *args):
+    name = func.__name__
+    desc =f'{name.title().replace('_',' ')} [{", ".join(args)}]'
+    print(desc)
+    return desc
 
 def test_readable_function():
     open_browser(browser_name="Chrome")
@@ -89,15 +100,15 @@ def test_readable_function():
 
 
 def open_browser(browser_name):
-    actual_result = None
+    actual_result = pretty_desc(open_browser, browser_name)
     assert actual_result == "Open Browser [Chrome]"
 
 
 def go_to_companyname_homepage(page_url):
-    actual_result = None
+    actual_result = pretty_desc(go_to_companyname_homepage, page_url)
     assert actual_result == "Go To Companyname Homepage [https://companyname.com]"
 
 
 def find_registration_button_on_login_page(page_url, button_text):
-    actual_result = None
+    actual_result = pretty_desc(find_registration_button_on_login_page, page_url, button_text)
     assert actual_result == "Find Registration Button On Login Page [https://companyname.com/login, Register]"
